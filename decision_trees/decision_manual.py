@@ -37,5 +37,3 @@ print(
 print(
     dataframe.apply(compare2,axis=1).mean()
 )
-
-
