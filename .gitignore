@@ -105,3 +105,12 @@ venv.bak/
 
 #Pycharm
 */.idea
+
+#jpg
+**/*.jpg
+
+#pdf
+**/*.pdf
+
+#img
+**/img_*
