@@ -49,10 +49,16 @@ names = ["3-nn", "5-nn", "11-nn", "d-tree", "n-b"]
 classifiers = [nn3, nn5, nn11, dt, nb]
 scores = [get_score(x, testing_set) for x in classifiers]
 
-cm = "\nConfusion matrix: "
+print()
+print("Classses in testing set:\n" + str(testing_set["class"].value_counts()))
 
-for name, classifier_item in zip(names,classifiers):
+print("\nConfusion matrix C[actual][predicted]")
+
+cm = "\nConfusion matrix:  "
+acc = "Accuracy: "
+for name, classifier_item, score in zip(names,classifiers,scores):
     print(cm + name)
+    print(acc + str(score))
     print(get_confusion_matrix(classifier_item, testing_set))
 
 fig = go.Figure(data=[
