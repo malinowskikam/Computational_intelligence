@@ -14,10 +14,13 @@ clustering = KMeans(
 clustering.fit(dataframe.drop('irisclass', axis=1))
 
 clusters = {}
+labels = []
 
 for row in dataframe.iterrows():
     row_values = [[row[1][0], row[1][1]]]
-    cluster_index = str(clustering.predict(row_values)[0])
+    index = clustering.predict(row_values)[0]
+    labels.append(index)
+    cluster_index = str(index)
 
     if cluster_index not in clusters:
         clusters[cluster_index] = {'x': [], 'y': [], 'class': []}
@@ -26,6 +29,6 @@ for row in dataframe.iterrows():
     clusters[cluster_index]['y'].append(row[1][1])
     clusters[cluster_index]['class'].append(row[1][2])
 
-#print_clusters_chart(clusters)
+print_clusters_chart(clusters)
 print(f"PURITY: {get_purity(clusters)}")
-print(f"RAND: {get_rand_index(clusters)}")
+print(f"RAND: {get_rand_index(clusters,labels)}")

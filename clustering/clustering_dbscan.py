@@ -26,6 +26,6 @@ for index in range(len(clustering.labels_)):
 
 
 
-#print_clusters_chart(clusters)
+print_clusters_chart(clusters)
 print(f"PURITY: {get_purity(clusters)}")
-print(f"RAND: {get_rand_index(clusters)}")
+print(f"RAND: {get_rand_index(clusters,clustering.labels_)}")

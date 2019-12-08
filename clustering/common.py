@@ -1,5 +1,6 @@
 import pandas
 import plotly.graph_objects as go
+from sklearn.metrics import adjusted_rand_score
 
 
 def get_dataframe():
@@ -47,21 +48,7 @@ def get_purity(clusters):
 
     lens = []
     positives = []
-    for cluster in cluster_map:
-        if cluster != '-1':
-            lens.append(cluster_map[cluster]['len'])
-            positives.append(cluster_map[cluster]['count'])
 
-    n_of_data_points = sum(lens)
-    sum_of_positives = sum(positives)
-
-    return sum_of_positives/n_of_data_points
-
-def get_rand_index(clusters):
-    cluster_map = get_cluster_class_map(clusters)
-
-    lens = []
-    positives = []
     for cluster in cluster_map:
         if cluster != '-1':
             lens.append(cluster_map[cluster]['len'])
@@ -71,3 +58,16 @@ def get_rand_index(clusters):
     sum_of_positives = sum(positives)
 
     return sum_of_positives / n_of_data_points
+
+def get_rand_index(clusters,labeling):
+    cluster_map = get_cluster_class_map(clusters)
+    dataframe = get_dataframe()['irisclass']
+
+    for cluster in cluster_map:
+        if(cluster_map[cluster]['class'] != '-1'):
+            dataframe = dataframe.replace(cluster_map[cluster]['class'],cluster)
+
+    dataframe = dataframe.replace("Iris",-2,regex=True).apply(pandas.to_numeric)
+
+
+    return adjusted_rand_score(dataframe,labeling)

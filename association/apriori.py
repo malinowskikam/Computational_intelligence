@@ -52,35 +52,35 @@ for rule in rules_list:
         rules_gender.append(rule)
 
 
-for rule in rules:
+for rule in rules_survived:
     print('==============')
     print(rule)
     print('==============')
     print()
 
-fig_crew_gender = go.Figure(
-    data=go.Pie(
-        title="Załoga Titanica",
-        labels=["Mężczyźni","Kobiety"],
-        values=[0.9740112994350282,1-0.9740112994350282]
-    )
-)
-fig_crew_gender.show()
-
-fig_male_survivability = go.Figure(
-    data=go.Pie(
-        title="Przeżywalność Mężczyzn",
-        labels=["Przeżyli","Nie Przeżyli"],
-        values=[1-0.7972405518896222,0.7972405518896222]
-    )
-)
-fig_male_survivability.show()
-
-fig_female_survivability = go.Figure(
-    data=go.Pie(
-        title="Przeżywalność Kobiet",
-        labels=["Przeżyły","Nie Przeżyły"],
-        values=[0.7319148936170213,1-0.7319148936170213]
-    )
-)
-fig_female_survivability.show()
+# fig_crew_gender = go.Figure(
+#     data=go.Pie(
+#         title="Załoga Titanica",
+#         labels=["Mężczyźni","Kobiety"],
+#         values=[0.9740112994350282,1-0.9740112994350282]
+#     )
+# )
+# fig_crew_gender.show()
+#
+# fig_male_survivability = go.Figure(
+#     data=go.Pie(
+#         title="Przeżywalność Mężczyzn",
+#         labels=["Przeżyli","Nie Przeżyli"],
+#         values=[1-0.7972405518896222,0.7972405518896222]
+#     )
+# )
+# fig_male_survivability.show()
+#
+# fig_female_survivability = go.Figure(
+#     data=go.Pie(
+#         title="Przeżywalność Kobiet",
+#         labels=["Przeżyły","Nie Przeżyły"],
+#         values=[0.7319148936170213,1-0.7319148936170213]
+#     )
+# )
+# fig_female_survivability.show()
