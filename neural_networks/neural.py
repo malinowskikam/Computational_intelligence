@@ -5,48 +5,34 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 
 from keras.models import Sequential
-from keras.layers import Dense
 from keras.optimizers import Adam
 
-iris_data = load_iris() # load the iris dataset
+# Just disables the warning, doesn't enable AVX/FMA
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-print('Example data: ')
-print(iris_data.data[:5])
-print('Example labels: ')
-print(iris_data.target[:5])
 
-x = iris_data.data
-y_ = iris_data.target.reshape(-1, 1) # Convert data to a single column
+class NeuralNetwork:
+    def __init__(self):
+        self.model = Sequential()
+        self.train_history = None
+        self.evaluation_result = None
 
-# One Hot encode the class labels
-encoder = OneHotEncoder(sparse=False)
-y = encoder.fit_transform(y_)
-#print(y)
+    def add_layer(self, layer):
+        self.model.add(layer)
+        return self
 
-# Split the data for training and testing
-train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.20)
+    def compile(self, optimizer=Adam(lr=0.001), loss='categorical_crossentropy'):
+        self.model.compile(optimizer, loss=loss, metrics=['accuracy'])
+        return self
 
-# Build the model
+    def fit(self, train_x, train_y, epochs=150, verbose=2, batch_size=5):
+        self.train_history = self.model.fit(train_x, train_y, verbose=verbose, batch_size=batch_size, epochs=epochs)
+        return self
 
-model = Sequential()
+    def evaluate(self, test_x, test_y):
+        self.evaluation_result = self.model.evaluate(test_x, test_y)
+        return self
 
-model.add(Dense(10, input_shape=(4,), activation='relu', name='fc1'))
-model.add(Dense(10, activation='relu', name='fc2'))
-model.add(Dense(3, activation='softmax', name='output'))
-
-# Adam optimizer with learning rate of 0.001
-optimizer = Adam(lr=0.001)
-model.compile(optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
-
-print('Neural Network Model Summary: ')
-print(model.summary())
-
-# Train the model
-model.fit(train_x, train_y, verbose=2, batch_size=5, epochs=200)
-
-# Test on unseen data
-
-results = model.evaluate(test_x, test_y)
-
-print('Final test set loss: {:4f}'.format(results[0]))
-print('Final test set accuracy: {:4f}'.format(results[1]))
+    def predict(self, x):
+        return self.model.predict(x)
