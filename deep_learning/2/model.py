@@ -5,7 +5,7 @@ from keras import backend as K
 import data
 import numpy as np
 
-batch_size = 150
+batch_size = 100
 
 model = models.Sequential()
 
