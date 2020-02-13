@@ -1,11 +1,9 @@
 from keras.preprocessing.image import ImageDataGenerator
-from keras.preprocessing.image import img_to_array, load_img
-from keras import layers, models, optimizers
-from keras import backend as K
+from keras import layers, models
 import data
 import numpy as np
 
-batch_size = 100
+batch_size = 10
 
 model = models.Sequential()
 
@@ -29,7 +27,7 @@ model.add(layers.Dense(1))
 model.add(layers.Activation('sigmoid'))
 
 model.compile(loss='binary_crossentropy',
-              optimizer='rmsprop',
+              optimizer='adam',
               metrics=['accuracy'])
 
 model.summary()

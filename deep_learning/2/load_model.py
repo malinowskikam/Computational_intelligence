@@ -1,12 +1,10 @@
 from keras.preprocessing.image import ImageDataGenerator
-from keras.preprocessing.image import img_to_array, load_img
-from keras import layers, models, optimizers
-from keras import backend as K
+from keras import models
 import data
 import numpy as np
 import cv2
 
-batch_size=20
+batch_size=1
 
 model = models.load_model("tmp_model.h5")
 model.load_weights("tmp_model_weights.h5")
@@ -32,6 +30,7 @@ for i in range(len(data.test_data)):
         j += 1 
 
 print(f"{len(data.test_data)-j}/{len(data.test_data)}")
+print(log)
 
 log = model.evaluate_generator(
     validation_generator,
